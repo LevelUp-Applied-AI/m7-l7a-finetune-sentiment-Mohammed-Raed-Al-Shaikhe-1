@@ -18,7 +18,8 @@ import os
 
 import numpy as np
 import pandas as pd
-from datasets import Dataset, DatasetDict
+from datasets import  DatasetDict
+from datasets import load_dataset
 from sklearn.metrics import accuracy_score, confusion_matrix, f1_score
 from transformers import (
     AutoModelForSequenceClassification,
@@ -44,22 +45,16 @@ def get_data_path() -> str:
     return os.environ.get("DATA_PATH", "data/app_reviews_train.csv")
 
 
+
 def prepare_dataset(data_path: str, test_size: float = 0.2, seed: int = 42) -> DatasetDict:
     """
     Load the CSV at `data_path` and produce a train/test split.
-
-    The CSV must have at least `text` and `label` columns. (The curated
-    `data/app_reviews_train.csv` also includes `app`, `app_name`, and `rating`
-    columns — these are useful for inspection but not required by the model.)
-
-    Returns a `DatasetDict` with "train" and "test" keys.
     """
-    df = pd.read_csv(data_path)
 
-    dataset = Dataset.from_pandas(
-        df,
-        preserve_index=False
-    )
+    dataset = load_dataset(
+        "csv",
+        data_files=data_path
+    )["train"]
 
     ds_dict = dataset.train_test_split(
         test_size=test_size,
