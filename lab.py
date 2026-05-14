@@ -182,7 +182,7 @@ def train_classifier(
     args=training_args,
     train_dataset=tokenized_ds["train"],
     eval_dataset=tokenized_ds["test"],
-    processing_class=tokenizer,
+    tokenizer=tokenizer,
     data_collator=data_collator,
     compute_metrics=compute_metrics
 )
