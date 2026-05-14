@@ -20,6 +20,7 @@ import numpy as np
 import pandas as pd
 from datasets import  DatasetDict
 from datasets import load_dataset
+from huggingface_hub import create_repo, upload_folder
 from sklearn.metrics import accuracy_score, confusion_matrix, f1_score
 from transformers import (
     AutoModelForSequenceClassification,
@@ -182,7 +183,7 @@ def train_classifier(
     args=training_args,
     train_dataset=tokenized_ds["train"],
     eval_dataset=tokenized_ds["test"],
-    processing_class=tokenizer,
+    tokenizer=tokenizer,
     data_collator=data_collator,
     compute_metrics=compute_metrics
 )
@@ -306,14 +307,25 @@ def main() -> None:
     # Push to Hugging Face Hub.
     # Skipped in CI (DATA_PATH set); requires `huggingface-cli login` locally.
     if os.environ.get("DATA_PATH") is None:
-        repo_id = "m7-app-review-sentiment"
-        try:
-            trainer.push_to_hub(repo_id)
-            tokenizer.push_to_hub(repo_id)
-            print(f"\nPushed to https://huggingface.co/MohammedRaed/{repo_id}")
-        except Exception as e:
-            print(f"\nHF Hub push failed: {e}")
-            print("Run `huggingface-cli login` and try again.")
+        repo_id = "MohammedRaed/m7-app-review-sentiment"
+
+    # 1. Create repo if it doesn't exist
+        create_repo(repo_id=repo_id, exist_ok=True)
+
+    # 2. Save model locally
+        trainer.save_model(output_dir)
+        tokenizer.save_pretrained(output_dir)
+
+    # 3. Upload full folder
+        upload_folder(
+            repo_id=repo_id,
+            folder_path=output_dir
+        )
+
+        print(f"Pushed to https://huggingface.co/{repo_id}")
+    ##except Exception as e:
+            #print(f"\nHF Hub push failed: {e}")
+            #print("Run `huggingface-cli login` and try again.")
 
 
 def _softmax(logits: np.ndarray) -> np.ndarray:
