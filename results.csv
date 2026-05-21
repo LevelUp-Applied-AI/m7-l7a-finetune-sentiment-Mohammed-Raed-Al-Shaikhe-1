@@ -1,0 +1,31 @@
+id,hypothesis_category,text,expected_label,rationale,predicted_label,predicted_probability,correct
+1,negation,The latest update did not improve battery life at all.,negative,Tests whether the model picks up the negation cue or just the trigger word 'improve',negative,0.8119485974311829,True
+2,lexical_trigger,This app is no longer reliable on my phone.,negative,Strong positive cue 'reliable' negated by 'no longer'; tests cue-vs-context handling,negative,0.9490192532539368,True
+3,domain_shift,The team won the championship final last weekend.,neutral,Sports content unrelated to app-review training; tests domain-shift robustness,neutral,0.42844250798225403,True
+4,negation,The service never became stable after the patch.,negative,Tests whether the model ignores the negation word 'never' and focuses on the positive cue 'stable',negative,0.7192475199699402,True
+5,negation,I cannot recommend this update anymore.,negative,Tests whether the phrase 'cannot recommend' is interpreted correctly despite the positive trigger word 'recommend',negative,0.8367167115211487,True
+6,negation,The redesign was not as helpful as promised.,negative,Checks if the model handles partial negation around the positive cue 'helpful',neutral,0.7166364192962646,False
+7,lexical_trigger,Amazing how quickly the app crashes now.,negative,Uses the strong positive cue 'Amazing' sarcastically to test lexical overreliance,positive,0.6885254979133606,False
+8,lexical_trigger,The so-called smart feature barely works.,negative,Tests whether the positive cue 'smart' overrides the surrounding negative context,neutral,0.6584945321083069,False
+9,lexical_trigger,"Great, another failed login attempt.",negative,Contains a positive trigger word in a clearly negative situation,negative,0.8559656739234924,True
+10,domain_shift,The recipe turned out exactly as expected.,positive,Non-review cooking domain tests whether general sentiment transfers correctly,neutral,0.5365164875984192,False
+11,domain_shift,The senator avoided answering the difficult question.,negative,Political-news phrasing tests domain transfer beyond app reviews,neutral,0.49742305278778076,False
+12,domain_shift,Heavy rain delayed the match for two hours.,neutral,Sports/news style sentence with little emotional polarity tests neutrality handling,neutral,0.52158522605896,True
+13,length_extreme,Works perfectly.,positive,Very short input tests prediction with minimal context,positive,0.7137851119041443,True
+14,length_extreme,Absolutely terrible experience.,negative,Short sentence with strong polarity tests confidence on limited input,negative,0.9619966745376587,True
+15,length_extreme,After using the application continuously for several weeks across multiple devices and software versions I still encountered random crashes failed synchronizations delayed notifications and occasional freezes during startup which made the overall experience frustrating and unreliable.,negative,Very long sentence tests whether the model loses important sentiment information over long contexts,negative,0.6886701583862305,True
+16,length_extreme,Although the interface initially appeared clean and responsive after extended use the application became slower consumed excessive battery power failed to save preferences consistently and occasionally logged me out without warning causing major inconvenience.,negative,Long multi-clause sentence tests whether later negative information is preserved,neutral,0.7058864235877991,False
+17,sarcasm,Fantastic the app froze during my presentation again.,negative,Tests whether the model mistakes sarcastic praise for genuine positive sentiment,negative,0.6632709503173828,True
+18,sarcasm,Perfect timing for the server to stop working.,negative,Positive surface wording hides clearly negative intent,positive,0.8710726499557495,False
+19,sarcasm,Wonderful another update that breaks everything.,negative,Tests whether the model overweights the positive cue 'Wonderful',positive,0.8790706992149353,False
+20,sarcasm,Yeah this bug definitely improved my workflow.,negative,Sarcastic phrasing tests contextual understanding beyond cue words,positive,0.8201918601989746,False
+21,other,luv this app soooo much,negative,Informal spelling and emoji-style phrasing test robustness to noisy text,negative,0.6952517032623291,True
+22,other,meh it is fine i guess,neutral,Ambiguous informal phrasing tests borderline-neutral predictions,neutral,0.6161637902259827,True
+23,other,BEST UPDATE EVER!!! and now nothing works.,negative,Excessive capitalization and punctuation combined with contradiction test robustness,negative,0.946973443031311,True
+24,other,The app is okay but the crashes are annoying.,neutral,Mixed sentiment sentence tests whether the model handles balanced polarity,neutral,0.8093479871749878,True
+25,other,Login failed lol nice job developers.,negative,Internet slang and sarcasm combined test robustness to informal language,negative,0.8830702900886536,True
+26,negation,The app does not feel faster after the update.,negative,Tests whether the model ignores negation near the positive cue 'faster',negative,0.5182665586471558,True
+27,lexical_trigger,Reliable support disappeared after the redesign.,negative,Tests whether the positive word 'Reliable' dominates despite negative context,neutral,0.6023315787315369,False
+28,domain_shift,The scientist confirmed the experiment results yesterday.,neutral,Scientific-report style sentence tests out-of-domain neutrality,neutral,0.4794600009918213,True
+29,sarcasm,What an excellent way to waste my afternoon.,negative,Positive wording used sarcastically to express frustration,positive,0.6035018563270569,False
+30,length_extreme,Good enough overall.,positive,Short low-information sentence tests minimal-context classification,neutral,0.564825177192688,False
